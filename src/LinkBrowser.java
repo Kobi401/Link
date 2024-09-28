@@ -5,14 +5,21 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+//##POSSIBLE IDEAS##
+//we could do an undecorated frame and do our own window frame?
+//do we want to keep javaFX webView or make our own engine?
+//how about making a Windows XP - 8.1 Build?
+//Encryption for user data.
+//Maybe Full customizability to the UI if the user wants? (Move UI elements to where ever, Colors, etc)
+
 public class LinkBrowser extends Application {
 
     @Override
     public void start(Stage primaryStage) {
         TabManager tabManager = new TabManager();
-        BrowserView browserView = new BrowserView(tabManager);
 
-        tabManager.createNewTab("New Tab", browserView);
+        BrowserView initialView = new BrowserView(tabManager);
+        tabManager.createNewTab("Home", initialView);
 
         BorderPane root = new BorderPane();
         root.setCenter(tabManager.getTabPane());
@@ -20,10 +27,22 @@ public class LinkBrowser extends Application {
         Scene scene = new Scene(root, 1024, 768);
         primaryStage.setTitle("Link");
         primaryStage.setScene(scene);
+
         primaryStage.show();
+        optimizeUI(primaryStage);
+    }
+
+    private void optimizeUI(Stage stage) {
+        stage.setResizable(true);
+        stage.setMinWidth(800);
+        stage.setMinHeight(600);
+
+        stage.widthProperty().addListener((obs, oldVal, newVal) -> System.gc());
+        stage.heightProperty().addListener((obs, oldVal, newVal) -> System.gc());
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 }
+

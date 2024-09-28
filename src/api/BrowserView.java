@@ -90,10 +90,10 @@ public class BrowserView {
 
         menuButton.getItems().addAll(refreshItem, backItem, forwardItem);
 
-        // Add the flash button to the layout
-        Region spacer = new Region();
+        //for sum reason this dont work now?
+        /*Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-        HBox rightButtonBox = new HBox(5, aboutButton, flashButton, menuButton);
+        HBox rightButtonBox = new HBox(5, aboutButton, flashButton, menuButton);*/
     }
 
     private void handleCustomUrl(String url) {
