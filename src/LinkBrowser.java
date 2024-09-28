@@ -1,19 +1,24 @@
+import api.BrowserView;
+import api.TabManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import api.BrowserView;
 
 public class LinkBrowser extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        BrowserView browserView = new BrowserView();
+        TabManager tabManager = new TabManager();
+        BrowserView browserView = new BrowserView(tabManager);
 
-        BorderPane root = browserView.createBrowserLayout();
+        tabManager.createNewTab("New Tab", browserView);
+
+        BorderPane root = new BorderPane();
+        root.setCenter(tabManager.getTabPane());
 
         Scene scene = new Scene(root, 1024, 768);
-        primaryStage.setTitle("Link Browser");
+        primaryStage.setTitle("Link");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

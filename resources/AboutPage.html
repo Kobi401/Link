@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Link Browser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .system-info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e1e1e1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        function showSystemInfo() {
+            document.getElementById('os-info').textContent = "Operating System: " + navigator.platform;
+        }
+    </script>
+</head>
+<body onload="showSystemInfo()">
+<h1>Link Browser</h1>
+<h2>Prototype Build</h2>
+<p>A lightweight JavaFX-based web browser built for simplicity, performance, and a non-Google Internet experience.</p>
+<p>We can change this page at a later date.</p>
+
+<h2>Developers:</h2>
+<ul>
+    <li>Kobi401</li>
+    <li>Im_Owen25</li>
+</ul>
+
+<div class="button-container">
+    <button class="button" onclick="window.location.href='link://open/github'">GitHub Page</button>
+    <button class="button" onclick="showSystemInfo()">Show System Info</button>
+</div>
+
+<div class="system-info">
+    <h3>System Information</h3>
+    <p id="os-info">Operating System: Loading...</p>
+</div>
+</body>
+</html>
