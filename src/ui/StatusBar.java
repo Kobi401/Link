@@ -1,4 +1,4 @@
-package api;
+package ui;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;

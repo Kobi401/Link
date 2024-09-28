@@ -1,4 +1,4 @@
-package api;
+package ui;
 
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;

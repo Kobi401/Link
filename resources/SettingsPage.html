@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Browser - Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #1e1e1e;
+            color: #ddd;
+        }
+        h1, h2 {
+            color: #f1c40f;
+            text-shadow: 1px 1px 3px #000;
+        }
+        p, li, h3 {
+            color: #bbb;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #5a5a5a;
+            color: white;
+            border: 1px solid #444;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #777;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+        .system-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            font-size: 14px;
+            border: 1px solid #555;
+        }
+        .checkbox-container {
+            margin-top: 20px;
+        }
+        .checkbox {
+            margin: 5px;
+        }
+    </style>
+    <script>
+        function toggleFlash() {
+            const isEnabled = document.getElementById('enable-flash').checked;
+            window.location.href = isEnabled ? 'link://settings/flash/on' : 'link://settings/flash/off';
+        }
+    </script>
+</head>
+<body onload="loadSettings()">
+<h1>Link Browser Settings</h1>
+<h2>Browser Features</h2>
+
+<div class="checkbox-container">
+    <label class="checkbox">
+        <input type="checkbox" id="enable-flash" onchange="toggleFlash()"> Enable Flash/Ruffle
+    </label>
+    <br>
+    <label class="checkbox">
+        <input type="checkbox" id="enable-feature-x" onchange="toggleFeature('enable-feature-x')"> Enable Feature X
+    </label>
+</div>
+
+<div class="button-container">
+    <button class="button" onclick="window.location.href='link://open/about'">Back to About Page</button>
+</div>
+
+</body>
+</html>
