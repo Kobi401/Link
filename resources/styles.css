@@ -1,0 +1,8 @@
+.text-field {
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+.web-view {
+    -fx-border-color: #e1e1e1;
+}
