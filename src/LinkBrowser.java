@@ -1,5 +1,5 @@
 import api.BrowserView;
-import api.TabManager;
+import api.Managers.TabManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

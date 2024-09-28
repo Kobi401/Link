@@ -1,5 +1,7 @@
 package api;
 
+import api.Flash.FlashHandler;
+import api.Managers.TabManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
@@ -9,7 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 
 public class BrowserView {
@@ -22,14 +23,18 @@ public class BrowserView {
     private MenuButton menuButton;
 
     private TabManager tabManager;
+    private FlashHandler flashHandler;
 
     public BrowserView(TabManager tabManager) {
         this.tabManager = tabManager;
         searchBar = new SearchBar();
         statusBar = new StatusBar();
+        flashHandler = new FlashHandler();
 
         browserArea = new WebView();
         webEngine = browserArea.getEngine();
+
+        webEngine.setUserAgent("LinkBrowser/1.0 (Windows; X64; Custom; rv:100.0) Gecko/20100101 LinkEngine/1.0.0");
 
         webEngine.locationProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.startsWith("link://open/")) {
@@ -44,7 +49,10 @@ public class BrowserView {
             switch (newState) {
                 case SCHEDULED -> statusBar.setStatus("Loading...");
                 case RUNNING -> statusBar.setStatus("Running...");
-                case SUCCEEDED -> statusBar.setStatus("Done");
+                case SUCCEEDED -> {
+                    statusBar.setStatus("Done");
+                    flashHandler.injectRuffleScript(webEngine);
+                }
                 case FAILED -> statusBar.setStatus("Failed to load the page");
                 case CANCELLED -> statusBar.setStatus("Loading cancelled");
             }
@@ -59,6 +67,9 @@ public class BrowserView {
     private void createRightButtons() {
         aboutButton = new Button("About Link");
         aboutButton.setOnAction(e -> loadAboutPage());
+
+        Button flashButton = new Button("Test Flash");
+        flashButton.setOnAction(e -> loadFlashTestPage());
 
         menuButton = new MenuButton("Menu");
         MenuItem refreshItem = new MenuItem("Refresh");
@@ -78,12 +89,22 @@ public class BrowserView {
         });
 
         menuButton.getItems().addAll(refreshItem, backItem, forwardItem);
+
+        // Add the flash button to the layout
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        HBox rightButtonBox = new HBox(5, aboutButton, flashButton, menuButton);
     }
 
     private void handleCustomUrl(String url) {
         if (url.equals("link://open/github")) {
             tabManager.createHtmlTab("GitHub", "https://github.com/Kobi401/Link");
         }
+    }
+
+    public void loadFlashTestPage() {
+        String flashTestUrl = getClass().getResource("/ruffle_integration.html").toExternalForm();
+        webEngine.load(flashTestUrl);
     }
 
     private void loadAboutPage() {
