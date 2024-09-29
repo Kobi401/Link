@@ -39,7 +39,7 @@ public class BrowserView {
         browserArea = new WebView();
         webEngine = browserArea.getEngine();
 
-        webEngine.setUserAgent("LinkBrowser/1.0 (Windows; x64; Custom; rv:100.0) Gecko/20100101 LinkEngine/1.0.0");
+        webEngine.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) LinkEngine/1.0 LinkBrowser/Prototype rv:1.0 Gecko/20230101 Safari/537.36");
 
         webEngine.locationProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.startsWith("link://open/")) {
@@ -52,18 +52,29 @@ public class BrowserView {
 
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {
             switch (newState) {
-                case SCHEDULED -> statusBar.setStatus("Loading...");
+                case SCHEDULED -> {
+                    statusBar.setStatus("Loading...");
+                    statusBar.showLoadingBar(true);
+                }
                 case RUNNING -> statusBar.setStatus("Running...");
                 case SUCCEEDED -> {
                     statusBar.setStatus("Done");
+                    statusBar.showLoadingBar(false);
                     if (configManager.isFlashEnabled()) {
                         flashHandler.injectRuffleScript(webEngine);
                     }
                 }
-                case FAILED -> statusBar.setStatus("Failed to load the page");
-                case CANCELLED -> statusBar.setStatus("Loading cancelled");
+                case FAILED -> {
+                    statusBar.setStatus("Failed to load the page");
+                    statusBar.showLoadingBar(false);
+                }
+                case CANCELLED -> {
+                    statusBar.setStatus("Loading cancelled");
+                    statusBar.showLoadingBar(false);
+                }
             }
         });
+
 
         searchBar.getSearchField().setOnAction(e -> loadPage());
         createMainMenuButton();

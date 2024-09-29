@@ -10,8 +10,10 @@
             color: #ddd;
         }
         h1, h2 {
-            color: #f1c40f;
-            text-shadow: 1px 1px 3px #000;
+            background: linear-gradient(90deg, #42a5f5, #ff7043); /* Brighter Chrome and Firefox colors */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6); /* Light shadow for brighter look */
         }
         p, li, h3 {
             color: #bbb;
@@ -41,7 +43,7 @@
             background-color: #777;
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
         }
-        .system-info {
+        .system-info, .license-info, .libraries-used {
             margin-top: 20px;
             padding: 15px;
             background-color: #333;
@@ -104,8 +106,8 @@
 
 <h2>Developers:</h2>
 <ul>
-    <li>Kobi401</li>
-    <li>Im_Owen25</li>
+    <li><strong>Kobi401</strong> - <em>(API, Backend, and Main Browser Code)</em></li>
+    <li><strong>Im_Owen25</strong> - <em>(UI Design and Security Code)</em></li>
 </ul>
 
 <div class="button-container">
@@ -119,5 +121,26 @@
     <p id="user-agent">User-Agent: Loading...</p>
     <p id="browser-version">Link Browser Version: Loading...</p>
 </div>
+
+<div class="libraries-used">
+    <h3>Libraries Used:</h3>
+    <ul>
+        <li><strong>JavaFX</strong> - JavaFX is used to build the user interface of the Link Browser.<br>
+            License: <a href="https://openjfx.io/openjfx-docs/#license" target="_blank">GPL with Classpath Exception</a>
+        </li>
+        <li><strong>Ruffle</strong> - Ruffle is used as a Flash Player emulator.<br>
+            License: <a href="https://github.com/ruffle-rs/ruffle/blob/master/LICENSE.md" target="_blank">MIT License</a>
+        </li>
+    </ul>
+</div>
+
+<div class="license-info">
+    <h3>License Information:</h3>
+    <p>
+        Link Browser uses libraries and technologies that are open-source and abide by their respective licenses.
+        The JavaFX library is distributed under the terms of the <a href="https://openjfx.io/openjfx-docs/#license" target="_blank">GPL with Classpath Exception</a>.
+    </p>
+</div>
+
 </body>
 </html>
