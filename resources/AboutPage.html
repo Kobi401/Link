@@ -83,10 +83,13 @@
         function showSystemInfo() {
             const userAgent = navigator.userAgent;
             const linkBrowserVersion = "Prototype";
+            const buildDate = "2024-09-29"; //Remember to update this
+
 
             document.getElementById('os-info').textContent = "Operating System: " + navigator.platform;
             document.getElementById('user-agent').textContent = "User-Agent: " + userAgent;
             document.getElementById('browser-version').textContent = "Link Version: " + linkBrowserVersion;
+            document.getElementById('build-date').textContent = "Build Date: " + buildDate;
         }
     </script>
 </head>
@@ -102,12 +105,14 @@
 
 <h2>Prototype Build</h2>
 <p>A lightweight JavaFX-based web browser built for simplicity, performance, and a non-Google Internet experience.</p>
-<p>We can change this page at a later date.</p>
+<p>The browser is inspired by popular browsers such as Chrome, Opera, and Firefox. However, its primary focus is to provide a browsing experience using non-Google or big-company controlled search engines.</p>
+<p>It is written in Java using OpenJDK 23, which allows cross-platform compatibility and a modern development environment. Our mission is to prioritize user privacy and control over their browsing experience, without relying on the large corporations that dominate the web today.</p>
+<p>The build date reflects the date when the project was last compiled and updated with new features.</p>
 
 <h2>Developers:</h2>
 <ul>
     <li><strong>Kobi401</strong> - <em>(API, Backend, and Main Browser Code)</em></li>
-    <li><strong>Im_Owen25</strong> - <em>(UI Design and Security Code)</em></li>
+    <li><strong><s>Im_Owen25</s></strong> - <em>(UI Design and Security Code)</em></li>
 </ul>
 
 <div class="button-container">
@@ -120,6 +125,7 @@
     <p id="os-info">Operating System: Loading...</p>
     <p id="user-agent">User-Agent: Loading...</p>
     <p id="browser-version">Link Browser Version: Loading...</p>
+    <p id="build-date">Build Date: Loading...</p>
 </div>
 
 <div class="libraries-used">

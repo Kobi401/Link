@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 //how about making a Windows XP - 8.1 Build?
 //Encryption for user data.
 //Maybe Full customizability to the UI if the user wants? (Move UI elements to where ever, Colors, etc)
+//Proxy service so we can bypass SESAC or whatever
+//how are we doing versioning? (Link 1.0 or what?)
 
 public class LinkBrowser extends Application {
 
