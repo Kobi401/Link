@@ -23,7 +23,6 @@ Link Browser is a lightweight, performance-focused web browser written in **Java
 - **Built-In Web Development Tools**: Tools similar to Chrome DevTools for inspecting HTML, CSS, and JavaScript.
 - **Browser Extensions**: A custom extension system for adding new features without recompiling.
 - **User Profiles & Sync**: Allow multiple users to use the same browser installation with separate profiles.
-- **Classic Theme Support**: Custom themes for older Windows versions, styled to look and feel like Windows XP and 8.1.
 
 ## **Planned Windows XP & 8.1 Compatibility** *(Requested by Kobi401)*
 Link Browser is being developed with legacy support in mind. Although our primary build target is for modern systems (Windows 10 and above), we have planned support for older Java versions, enabling the browser to work seamlessly on Windows XP, Vista, and Windows 8.1. Note that these versions will require a backport of some features and are **not currently supported**. Keep an eye on future releases as we expand our compatibility matrix.
