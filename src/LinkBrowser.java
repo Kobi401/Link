@@ -1,9 +1,12 @@
 import api.BrowserView;
 import api.Managers.TabManager;
+import api.plugins.PluginManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 //##POSSIBLE IDEAS##
 //we could do an undecorated frame and do our own window frame?
@@ -29,6 +32,9 @@ public class LinkBrowser extends Application {
         Scene scene = new Scene(root, 1024, 768);
         primaryStage.setTitle("Link");
         primaryStage.setScene(scene);
+
+        PluginManager pluginManager = new PluginManager(initialView.getBrowserArea().getEngine());
+        pluginManager.loadPlugins();
 
         primaryStage.show();
         optimizeUI(primaryStage);
