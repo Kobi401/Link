@@ -6,6 +6,8 @@
 
 Link Browser is a lightweight, performance-focused web browser written in **Java** (`OpenJDK 23`) using the **JavaFX** framework. It is designed to provide a simple yet powerful browsing experience without relying on Google-backed or other major data-harvesting search engines. Our primary goal is to maintain a browser that's not just built for performance but also for **user privacy** and **customization**.
 
+I keep forgetting i need to add Comments and Documentation but some methods have comments and docs to them if i remembered too do it -Kobi401
+
 ## **Features**
 - **Custom User-Agent String**: Built to emulate various user-agent strings for bypassing blocks, but defaults to a custom `LinkEngine` signature.
 - **Tabbed Browsing**: Supports multi-tabbed browsing with an advanced tab manager, including memory monitoring for each tab.
