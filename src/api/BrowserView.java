@@ -24,6 +24,7 @@ public class BrowserView {
     private StatusBar statusBar;
     private WebView browserArea;
     private WebEngine webEngine;
+    private BorderPane mainLayout;
     private MenuButton mainMenuButton;
 
     private ConfigManager configManager;
@@ -33,23 +34,68 @@ public class BrowserView {
     private static final Pattern URL_PATTERN = Pattern.compile(
             "^(https?|file|ftp|link)://[^\\s/$.?#].[^\\s]*$", Pattern.CASE_INSENSITIVE);
 
+    //"awesome" easter egg
+    private String typedKeys = "";
+
     public BrowserView(TabManager tabManager) {
         this.tabManager = tabManager;
         initializeComponents();
         configureWebEngine();
         createMainMenuButton();
+        createEventHandlers();
         loadPage("https://www.google.com");
+    }
+
+    /**
+     * Creates event handlers for detecting the "awesome" Easter Egg.
+     */
+    private void createEventHandlers() {
+        mainLayout.setOnKeyTyped(event -> {
+            typedKeys += event.getCharacter();
+            if (typedKeys.toLowerCase().contains("awesome")) {
+                typedKeys = "";
+                statusBar.setLoadingBarStyle("rainbow");
+                System.out.println("Easter Egg: Rainbow loading bar activated!");
+            }
+        });
     }
 
     private void initializeComponents() {
         searchBar = new SearchBar();
         statusBar = new StatusBar();
+
+        searchBar.getBackButton().setOnAction(e -> goBack());
+        searchBar.getForwardButton().setOnAction(e -> goForward());
+        searchBar.getRefreshButton().setOnAction(e -> refreshPage());
+
         configManager = new ConfigManager();
         flashHandler = new FlashHandler(configManager.isFlashEnabled());
 
         browserArea = new WebView();
         webEngine = browserArea.getEngine();
         webEngine.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) LinkEngine/1.0 LinkBrowser/Prototype rv:1.0 Gecko/20230101 Safari/537.36");
+
+        mainLayout = new BorderPane();
+        mainLayout.setTop(setupSearchBarContainer());
+        mainLayout.setCenter(browserArea);
+        mainLayout.setBottom(statusBar.getStatusBarContainer());
+    }
+
+    /**
+     * Sets up the search bar container to span the entire width.
+     *
+     * @return HBox containing the search bar.
+     */
+    private HBox setupSearchBarContainer() {
+        HBox searchBarContainer = searchBar.getSearchBarContainer();
+
+        HBox.setHgrow(searchBar.getSearchField(), Priority.ALWAYS);
+        HBox.setHgrow(searchBarContainer, Priority.ALWAYS);
+
+        searchBarContainer.setPadding(new Insets(2, 10, 2, 10));
+        searchBarContainer.setStyle("-fx-background-color: #e0e0e0; -fx-border-color: #ccc; -fx-border-radius: 5;");
+
+        return searchBarContainer;
     }
 
     private void configureWebEngine() {
@@ -133,13 +179,43 @@ public class BrowserView {
     }
 
     public void loadPage(String url) {
-        if (url.startsWith("Link/")) {
+        if (url.startsWith("Link/AboutPage")) {
             webEngine.load(getClass().getResource("/AboutPage.html").toExternalForm());
+        } else if (url.startsWith("Link/SettingsPage")) {
+            webEngine.load(getClass().getResource("/SettingsPage.html").toExternalForm());
         } else {
             url = normalizeUrl(url);
             webEngine.load(url);
         }
         statusBar.setStatus("Loading: " + url);
+    }
+
+    /**
+     * Goes back to the previous page in the WebEngine history.
+     */
+    private void goBack() {
+        if (webEngine.getHistory().getCurrentIndex() > 0) {
+            webEngine.getHistory().go(-1);
+            statusBar.setStatus("Going back...");
+        }
+    }
+
+    /**
+     * Goes forward to the next page in the WebEngine history.
+     */
+    private void goForward() {
+        if (webEngine.getHistory().getCurrentIndex() < webEngine.getHistory().getEntries().size() - 1) {
+            webEngine.getHistory().go(1);
+            statusBar.setStatus("Going forward...");
+        }
+    }
+
+    /**
+     * Refreshes the current page in the WebEngine.
+     */
+    private void refreshPage() {
+        webEngine.reload();
+        statusBar.setStatus("Refreshing page...");
     }
 
     /** Normalizes URL for consistent loading */
@@ -154,7 +230,7 @@ public class BrowserView {
     }
 
     private void loadSettingsPage() {
-        String settingsUrl = getClass().getResource("/SettingsPage.html").toExternalForm();
+        String settingsUrl = "Link/SettingsPage.html";
         tabManager.createHtmlTab("Settings", settingsUrl);
     }
 
